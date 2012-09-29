@@ -88,7 +88,7 @@ class CRidcully implements ISingleton {
 
         // Include the global functions.php and the functions.php that are part of the theme
         $r = &$this;
-        include_once RIDCULLY_INSTALL_PATH . 'themes/functions.php';
+        include_once RIDCULLY_INSTALL_PATH . '/themes/functions.php';
         $functionsPath = "{$themePath}/functions.php";
         if(is_file($functionsPath)) {
           include $functionsPath;
