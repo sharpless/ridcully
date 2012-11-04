@@ -6,10 +6,7 @@
  * @package RidcullyCore
  */
 
-class CCGuestBook extends CObject implements IHasSQL {
-
-  private $title = "Gästbook";
-
+class CMGuestBook extends CObject implements IHasSQL {
 
   public function __construct() {
     parent::__construct();
@@ -33,7 +30,7 @@ class CCGuestBook extends CObject implements IHasSQL {
     return $queries[$key];
   }
 
-  private function Add($message, $author) {
+  public function Add($message, $author) {
     $this->database->ExecuteQuery(self::SQL('insert into guestbook'), array($message, $author));
     if ($this->database->RowCount() != 1) {
       die('Failed to insert new guestbook item into database.');
@@ -41,13 +38,13 @@ class CCGuestBook extends CObject implements IHasSQL {
     $this->session->AddMessage('info', 'Successfully saved message.');
   }
   
-  private function DeleteAll() {
+  public function DeleteAll() {
     $this->database->ExecuteQuery(self::SQL('drop guestbook'));
     $this->CreateTable();
     $this->session->AddMessage('info', 'Removed all messages from the database table.');
   }
   
-  private function Init() {
+  public function Init() {
     
     try {
       $this->database->ExecuteQuery(self::SQL('create table guestbook'));
@@ -57,7 +54,7 @@ class CCGuestBook extends CObject implements IHasSQL {
     }
   }
   
-  private function ReadAll() {
+  public function ReadAll() {
     try {
       return $this->database->ExecuteSelectQueryAndFetchAll(self::SQL('select from guestbook'));
     } catch (Exception $e) {
