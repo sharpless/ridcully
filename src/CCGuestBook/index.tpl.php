@@ -1,7 +1,7 @@
 <h1>Gästbook</h1>
  <form action="<?=$formAction?>" method="post">
    <label for="message">Meddelande:<br>
-    <textarea id="message" name="message"></textarea>
+    <textarea id="message" cols="40" rows="10" name="message"></textarea>
    </label><br>
    <label for="author">Författare:<br>
     <input type="text" id="author" name="author">
