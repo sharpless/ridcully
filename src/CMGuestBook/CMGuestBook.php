@@ -40,7 +40,7 @@ class CMGuestBook extends CObject implements IHasSQL {
   
   public function DeleteAll() {
     $this->database->ExecuteQuery(self::SQL('drop guestbook'));
-    $this->CreateTable();
+    $this->Init();
     $this->session->AddMessage('info', 'Removed all messages from the database table.');
   }
   
