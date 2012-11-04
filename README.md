@@ -1,4 +1,4 @@
 ridcully
 ========
 
-This is pretty much a clone of Lydia ( https://github.com/mosbth/lydia )
+This is pretty much a clone of Ridcully ( https://github.com/mosbth/ridcully )

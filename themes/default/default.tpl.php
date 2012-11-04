@@ -2,19 +2,21 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <title><?=$r_title?></title>
-  <link rel="stylesheet" href="<?=$r_stylesheet?>">
+  <title><?=$title?></title>
+  <link rel="stylesheet" href="<?=$stylesheet?>">
 </head>
 <body>
   <div id="header">
-    <?=$r_header?>
+    <?=$header?>
   </div>
   <div id="main" role="main">
-    <?=$r_main?>
+    <?=get_messages_from_session()?>
+    <?=$main?>
+    <?=render_views()?>
     <?=get_debug()?>
   </div>
   <div id="footer">
-    <?=$r_footer?>
+    <?=$footer?>
   </div>
 </body>
 </html>

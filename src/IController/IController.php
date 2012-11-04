@@ -2,7 +2,7 @@
 /**
 * Interface for classes implementing a controller.
 *
-* @package ridcullyCore
+* @package RidcullyCore
 */
 interface IController {
   public function Index();

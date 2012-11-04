@@ -2,11 +2,15 @@
 /**
 * Standard controller layout.
 *
-* @package ridcullyCore
+* @package RidcullyCore
 */
-class CCDeveloper implements IController {
+class CCDeveloper extends CObject implements IController {
 
-   /**
+  public function __construct() {
+    parent::__construct();
+  }
+
+  /**
     * Implementing interface IController. All controllers must have an index action.
     */
    public function Index() {   
@@ -18,23 +22,22 @@ class CCDeveloper implements IController {
     */
    public function Links() {
      $this->Menu();
-     $r = CRidcully::Instance();
 
      $uri = "developer/links";
-     $current = $r->Instance()->request->CreateUri($uri);
+     $current = $this->request->CreateUri($uri);
 
-     $r->request->cleanUri = false;
-     $r->request->queryStringUri = false;
-     $default = $r->Instance()->request->CreateUri($uri);
+     $this->request->cleanUri = false;
+     $this->request->queryStringUri = false;
+     $default = $this->request->CreateUri($uri);
 
-     $r->request->cleanUri = true;
-     $clean = $r->Instance()->request->CreateUri($uri);
+     $this->request->cleanUri = true;
+     $clean = $this->request->CreateUri($uri);
 
-     $r->request->cleanUri = false;
-     $r->request->queryStringUri = true;
-     $querystring = $r->Instance()->request->CreateUri($uri);
+     $this->request->cleanUri = false;
+     $this->request->queryStringUri = true;
+     $querystring = $this->request->CreateUri($uri);
 
-     $r->data['main'] .= <<<EOD
+     $this->data['main'] .= <<<EOD
 <h2>CRequest::CreateUrl()</h2>
 <p>Here is a list of urls created using above method with various settings. All links should lead to
 this same page.</p>
@@ -51,17 +54,16 @@ EOD;
    * Create a method that shows the menu, same for all methods
    */
   private function Menu() {  
-    $r = CRidcully::Instance();
     $menu = array('developer', 'developer/index', 'developer/links');
     
     $html = null;
     foreach($menu as $uri) {
-      $html .= "<li><a href='" . $r->request->CreateUri($uri) . "'>$uri</a>\n";  
+      $html .= "<li><a href='" . $this->request->CreateUri($uri) . "'>$uri</a>\n";  
     }
     
-    $r->data['title'] = "The Developer Controller";
-    $r->data['header'] = "";
-    $r->data['main'] = <<<EOD
+    $this->data['title'] = "The Developer Controller";
+    $this->data['header'] = "";
+    $this->data['main'] = <<<EOD
 <h1>The Developer Controller</h1>
 <p>This is what you can do for now:</p>
 <ul>

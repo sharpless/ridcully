@@ -2,7 +2,7 @@
 /**
 * The main class for Ridcully
 *
-* @package ridcullyCore
+* @package RidcullyCore
 */
 class CRidcully implements ISingleton {
 
@@ -28,9 +28,18 @@ class CRidcully implements ISingleton {
    * Constructor
    */
    protected function __construct() {
+    // time page generation
+    $this->timer['first'] = microtime(true); 
     // include the site specific config.php and create a ref to $r to be used by config.php
     $r = &$this;
     require(RIDCULLY_SITE_PATH.'/config.php');
+    $this->database = new CDatabase($this->config['database'][0]['dsn']);
+    $this->views = new CViewContainer();
+    // Start a named session
+    session_name($this->config['session_name']);
+    session_start();
+    $this->session = new CSession($this->config['session_key']);
+    $this->session->PopulateFromSession();
    }
 
   /**
@@ -78,6 +87,7 @@ class CRidcully implements ISingleton {
         * ThemeEngineRender, renders the reply of the request.
         */
       public function ThemeEngineRender() {
+        $this->session->StoreInSession();
         // Get the paths and settings for the theme
         $themeName    = $this->config['theme']['name'];
         $themePath    = RIDCULLY_INSTALL_PATH . "/themes/{$themeName}";
@@ -94,9 +104,9 @@ class CRidcully implements ISingleton {
           include $functionsPath;
         }
         
-
-        // Extract $r->data to own variables and handover to the template file
-        extract($this->data,  EXTR_PREFIX_ALL, "r");     
+        // Extract $r->data and $r->view->data to own variables and handover to the template file
+        extract($this->data);     
+        extract($this->views->GetData());     
         include("{$themePath}/default.tpl.php");
       }
 }

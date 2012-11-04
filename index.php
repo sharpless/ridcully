@@ -3,7 +3,7 @@
  * Gatekeeper: Handle all requests
  * 
  * @package ridcully
- * 
+ * @author Fredrik Larsson <fredrik@sharpless.se>
  */
 //
 // Bootstrap

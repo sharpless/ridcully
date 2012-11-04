@@ -2,7 +2,7 @@
     /**
     * Standard controller layout.
     *
-    * @package ridcullyCore
+    * @package RidcullyCore
     */
     class CCIndex implements IController {
 
