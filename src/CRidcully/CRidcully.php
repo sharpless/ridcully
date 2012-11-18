@@ -29,10 +29,11 @@ class CRidcully implements ISingleton {
    */
    protected function __construct() {
     // time page generation
-    $this->timer['first'] = microtime(true); 
+    $this->timer['first'] = microtime(true);
     // include the site specific config.php and create a ref to $r to be used by config.php
     $r = &$this;
     require(RIDCULLY_SITE_PATH.'/config.php');
+    date_default_timezone_set($this->config['timezone']);
     $this->database = new CDatabase($this->config['database'][0]['dsn']);
     $this->views = new CViewContainer();
     // Start a named session
@@ -40,6 +41,8 @@ class CRidcully implements ISingleton {
     session_start();
     $this->session = new CSession($this->config['session_key']);
     $this->session->PopulateFromSession();
+    // Create a object for the user
+    $this->user = new CMUser($this);
    }
 
   /**

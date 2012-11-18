@@ -49,7 +49,9 @@ $r->config['language'] = 'en';
 $r->config['controllers'] = array(
   'index'     => array('enabled' => true, 'class' => 'CCIndex'),
   'developer' => array('enabled' => true, 'class' => 'CCDeveloper'),
-  'guestbook' => array('enabled' => true, 'class' => "CCGuestBook")
+  'guestbook' => array('enabled' => true, 'class' => "CCGuestBook"),
+  'user'      => array('enabled' => true, 'class' => "CCUser"),
+  'acp'       => array('enabled' => true,'class' => 'CCAdminControlPanel'),
 );
 
 /*
@@ -91,3 +93,7 @@ $r->config['database'][0]['dsn'] = 'sqlite:' . RIDCULLY_SITE_PATH . '/data/.ht.s
  */
 
 $r->config['session_key'] = 'ridcully';
+
+$r->config['timezone'] = 'Europe/Stockholm';
+
+$r->config['create_new_users'] = true;

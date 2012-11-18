@@ -10,9 +10,9 @@ function current_uri()
   return CRidcully::Instance()->request->current_uri;
 }
 
-function create_uri($uri)
+function create_uri($uriOrController=null, $method=null, $arguments=null)
 {
-  return CRidcully::Instance()->request->createUri($uri);
+  return CRidcully::Instance()->request->createUri($uriOrController, $method, $arguments);
 }
 
 /**
@@ -75,3 +75,28 @@ function get_debug() {
       }
       return $html;
     }
+    
+    /**
+    * Login menu. Creates a menu which reflects if user is logged in or not.
+    */
+    function login_menu() {
+      $r = CRidcully::Instance();
+      if($r->user->IsAuthenticated()) {
+        
+        $items = "<a href='" . create_uri('user/profile') . "'><img class='gravatar' src='" . get_gravatar(20) . "' alt=''> " . $r->user->GetAcronym() . "</a> ";
+        if($r->user->IsAdministrator()) {
+          $items .= "<a href='" . create_uri('acp') . "'>acp</a> ";
+        }
+        $items .= "<a href='" . create_uri('user/logout') . "'>logout</a> ";
+      } else {
+        $items = "<a href='" . create_uri('user/login') . "'>login</a> ";
+      }
+      return "<nav>$items</nav>";
+    }
+    
+    /**
+* Get a gravatar based on the user's email.
+*/
+function get_gravatar($size=null) {
+  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CRidcully::Instance()->user->profile->email))) . '.jpg?' . ($size ? "s=$size" : null);
+}
