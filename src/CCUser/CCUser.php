@@ -34,7 +34,7 @@
   public function Login() {
     $form = new CFormUserLogin($this);
     if ($form->Check() === false) {
-      $this->session->AddMessage('notice', 'Some fields did not validate and the form could not be processed.');
+      $this->AddMessage('notice', 'Some fields did not validate and the form could not be processed.');
       $this->RedirectToController('login');
     }
     $this->views->SetTitle('Login');
@@ -75,7 +75,10 @@
     /**
     * View and edit user profile.
     */
-    public function Profile() {   
+    public function Profile() {
+        if ($this->user->hasRoleAnonymous) {
+            $this->RedirectToController();
+        }
         $form = new CFormUserProfile($this, $this->user);
         $form->Check();
 
@@ -92,10 +95,10 @@
     */
       public function DoChangePassword($form) {
         if($form['password']['value'] != $form['password1']['value'] || empty($form['password']['value']) || empty($form['password1']['value'])) {
-          $this->session->AddMessage('error', 'Password does not match or is empty.');
+          $this->AddMessage('error', 'Password does not match or is empty.');
         } else {
           $ret = $this->user->ChangePassword($form['password']['value']);
-          $this->session->AddMessage($ret, 'Saved new password.', 'Failed updating password.');
+          $this->AddMessage($ret, 'Saved new password.', 'Failed updating password.');
         }
         $this->RedirectToController('profile');
       }
@@ -106,7 +109,7 @@
         $this->user->profile->name = $form['name']['value'];
         $this->user->profile->email = $form['email']['value'];
         $ret = $this->user->Save();
-        $this->session->AddMessage($ret, 'Saved profile.', 'Failed saving profile.');
+        $this->AddMessage($ret, 'Saved profile.', 'Failed saving profile.');
         $this->RedirectToController('profile');
       }
   /**
@@ -115,7 +118,7 @@
   public function Create() {
     $form = new CFormUserCreate($this);
     if($form->Check() === false) {
-      $this->session->AddMessage('notice', 'You must fill in all values.');
+      $this->AddMessage('notice', 'You must fill in all values.');
       $this->RedirectToController('Create');
     }
     $this->views->SetTitle('Create user');
@@ -137,7 +140,7 @@
                            $form['name']['value'],
                            $form['email']['value']
                            )) {
-      $this->session->AddMessage('success', "Welcome {$form['name']['value']}. Your have successfully created a new account.");
+      $this->AddMessage('success', "Welcome {$form['name']['value']}. Your have successfully created a new account.");
       $this->user->Login($form['acronym']['value'], $form['password']['value']);
       $this->RedirectToController('profile');
     } else {

@@ -19,6 +19,9 @@ class CCAdminControlPanel extends CObject implements IController {
 * Show profile information of the user.
 */
   public function Index() {
+    if (!$this->user->hasRoleAdmin) {
+        $this->RedirectTo();
+    }
     $this->views->SetTitle('ACP: Admin Control Panel');
     $this->views->AddInclude(__DIR__ . '/index.tpl.php');
   }

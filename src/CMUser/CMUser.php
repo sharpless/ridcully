@@ -11,7 +11,9 @@ require_once 'PasswordHash.php';
 class CMUser extends CObject implements IHasSQL {
     
     private $phpass;
-
+    public $hasRoleAdmin = false;
+    public $hasRoleUser = false;
+    public $hasRoleAnonymous = true;
 
     public function __construct($r=null) {
         parent::__construct($r);
@@ -22,7 +24,6 @@ class CMUser extends CObject implements IHasSQL {
         if(!$this->isAuthenticated) {
             $this->id = 1;
             $this->acronym = 'anonymous';
-            $this->hasRoleAnonymous = true;
         }
       }
 
@@ -78,7 +79,7 @@ class CMUser extends CObject implements IHasSQL {
           $this->database->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idAdminGroup));
           $this->database->ExecuteQuery(self::SQL('insert into user2group'), array($idRootUser, $idUserGroup));
           $this->database->ExecuteQuery(self::SQL('insert into user2group'), array($idDoeUser, $idUserGroup));
-          $this->session->AddMessage('notice', 'Successfully created the database tables and created a default admin user as root:root and an ordinary user as doe:doe.');
+          $this->AddMessage('notice', 'Successfully created the database tables and created a default admin user as root:root and an ordinary user as doe:doe.');
         } catch(Exception$e) {
           die("$e<br/>Failed to open database: " . $this->config['database'][0]['dsn']);
         }
@@ -106,18 +107,20 @@ class CMUser extends CObject implements IHasSQL {
            foreach($user->groups as $val) {
             if($val->id == 1) {
               $user->hasRoleAdmin = true;
+              $user->hasRoleAnonymous = false;
             }
             if($val->id == 2) {
               $user->hasRoleUser = true;
+              $user->hasRoleAnonymous = false;
             }
           }
             $this->profile = $user;
             $this->session->SetAuthenticatedUser($this->profile);
-            $this->session->AddMessage('success', "Welcome '{$user->name}'.");
+            $this->AddMessage('success', "Welcome '{$user->name}'.");
             $this->acronym = $user->acronym;
             $this->mail = $user->mail;
         } else {
-          $this->session->AddMessage('notice', "Could not login, user does not exists or password did not match.");
+          $this->AddMessage('notice', "Could not login, user does not exists or password did not match.");
         }
         return ($user != null);
       }
@@ -127,7 +130,7 @@ class CMUser extends CObject implements IHasSQL {
        */
       public function Logout() {
         $this->session->UnsetAuthenticatedUser();
-        $this->session->AddMessage('success', "You have logged out.");
+        $this->AddMessage('success', "You have logged out.");
       }
      
 
@@ -176,9 +179,13 @@ class CMUser extends CObject implements IHasSQL {
 * @returns boolean true if success else false.
 */
   public function Save() {
-    $this->database->ExecuteQuery(self::SQL('update profile'), array($this->profile->name, $this->profile->email, $this->profile->id));
-    $this->session->SetAuthenticatedUser($this->profile);
-    return $this->database->RowCount() === 1;
+      try {
+        $this->database->ExecuteQuery(self::SQL('update profile'), array($this->profile->name, $this->profile->email, $this->profile->id));
+        $this->session->SetAuthenticatedUser($this->profile);
+      } catch (Exception $e) {
+        $this->AddMessage('error', "Failed to save profile: ". $e->getMessage());
+        }
+      return $this->database->RowCount() === 1;
   }
   
   
@@ -205,9 +212,12 @@ class CMUser extends CObject implements IHasSQL {
 */
   public function Create($acronym, $password, $name, $email) {
     $pwd = $this->phpass->HashPassword($password);
-    $this->database->ExecuteQuery(self::SQL('insert into user'), array($acronym, $name, $email, $pwd));
+    try {
+        $this->database->ExecuteQuery(self::SQL('insert into user'), array($acronym, $name, $email, $pwd));
+    } catch (Exception $e) {
+        $this->AddMessage('error', "Failed to create user." . $e->getMessage());
+    }
     if($this->database->RowCount() == 0) {
-      $this->session->AddMessage('error', "Failed to create user.");
       return false;
     }
     return true;

@@ -35,13 +35,13 @@ class CMGuestBook extends CObject implements IHasSQL {
     if ($this->database->RowCount() != 1) {
       die('Failed to insert new guestbook item into database.');
     }
-    $this->session->AddMessage('info', 'Successfully saved message.');
+    $this->AddMessage('info', 'Successfully saved message.');
   }
   
   public function DeleteAll() {
     $this->database->ExecuteQuery(self::SQL('drop guestbook'));
     $this->Init();
-    $this->session->AddMessage('info', 'Removed all messages from the database table.');
+    $this->AddMessage('info', 'Removed all messages from the database table.');
   }
   
   public function Init() {
