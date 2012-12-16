@@ -8,12 +8,9 @@
  */
 require_once 'PasswordHash.php';
 
-class CMUser extends CObject implements IHasSQL {
+class CMUser extends CObject implements IHasSQL, ArrayAccess {
     
     private $phpass;
-    public $hasRoleAdmin = false;
-    public $hasRoleUser = false;
-    public $hasRoleAnonymous = true;
 
     public function __construct($r=null) {
         parent::__construct($r);
@@ -21,12 +18,18 @@ class CMUser extends CObject implements IHasSQL {
         $profile = $this->session->GetAuthenticatedUser();
         $this->profile = is_null($profile) ? array() : $profile;
         $this->isAuthenticated = is_null($profile) ? false : true;
-        if(!$this->isAuthenticated) {
-            $this->id = 1;
-            $this->acronym = 'anonymous';
+        if(!$this["isAuthenticated"]) {
+            $this["id"] = 1;
+            $this["acronym"] = 'anonymous';
         }
       }
-
+  /**
+* Implementing ArrayAccess for $this->profile
+*/
+  public function offsetSet($offset, $value) { if (is_null($offset)) { $this->profile[] = $value; } else { $this->profile[$offset] = $value; }}
+  public function offsetExists($offset) { return isset($this->profile[$offset]); }
+  public function offsetUnset($offset) { unset($this->profile[$offset]); }
+  public function offsetGet($offset) { return isset($this->profile[$offset]) ? $this->profile[$offset] : null; }
 
       /**
        * Implementing interface IHasSQL. Encapsulate all SQL used by this class.
@@ -95,30 +98,29 @@ class CMUser extends CObject implements IHasSQL {
       public function Login($akronymOrEmail, $password) {
         $user = $this->database->ExecuteSelectQueryAndFetchAll(self::SQL('check user password'), array($akronymOrEmail, $akronymOrEmail));
         $user = (isset($user[0])) ? $user[0] : null;
-          if (isset($user->password)) {
-              $check = $this->phpass->CheckPassword($password, $user->password);
+          if (isset($user["password"])) {
+              $check = $this->phpass->CheckPassword($password, $user["password"]);
               if (!$check) {
                   $user = NULL;
               }
           }
-          unset($user->password);
+          unset($user["password"]);
         if($user) {
-          $user->groups = $this->database->ExecuteSelectQueryAndFetchAll(self::SQL('get group memberships'), array($user->id));
-           foreach($user->groups as $val) {
-            if($val->id == 1) {
-              $user->hasRoleAdmin = true;
-              $user->hasRoleAnonymous = false;
+          $user['isAuthenticated'] = true;
+          $user["groups"] = $this->database->ExecuteSelectQueryAndFetchAll(self::SQL('get group memberships'), array($user["id"]));
+           foreach($user["groups"] as $val) {
+            if($val["id"] == 1) {
+              $user["hasRoleAdmin"] = true;
+              $user["hasRoleAnonymous"] = false;
             }
-            if($val->id == 2) {
-              $user->hasRoleUser = true;
-              $user->hasRoleAnonymous = false;
+            if($val["id"] == 2) {
+              $user["hasRoleUser"] = true;
+              $user["hasRoleAnonymous"] = false;
             }
           }
             $this->profile = $user;
             $this->session->SetAuthenticatedUser($this->profile);
-            $this->AddMessage('success', "Welcome '{$user->name}'.");
-            $this->acronym = $user->acronym;
-            $this->mail = $user->mail;
+            $this->AddMessage('success', "Welcome '{$user["name"]}'.");
         } else {
           $this->AddMessage('notice', "Could not login, user does not exists or password did not match.");
         }
@@ -130,6 +132,7 @@ class CMUser extends CObject implements IHasSQL {
        */
       public function Logout() {
         $this->session->UnsetAuthenticatedUser();
+        $this->profile = array();
         $this->AddMessage('success', "You have logged out.");
       }
      
@@ -160,19 +163,9 @@ class CMUser extends CObject implements IHasSQL {
        */
       public function GetAcronym() {
         $profile = $this->GetProfile();
-        return isset($profile->acronym) ? $profile->acronym : null;
+        return isset($profile["acronym"]) ? $profile["acronym"] : null;
       }
-  /**
-   * Does the user have the admin role?
-   *
-   * @returns boolen true or false.
-   */
-  public function IsAdministrator() {
-    $profile = $this->GetProfile();
-    return isset($profile->hasRoleAdmin) ? $profile->hasRoleAdmin : null;
-  }
-  
-  
+
   /**
 * Save user profile to database and update user profile in session.
 *
@@ -180,7 +173,7 @@ class CMUser extends CObject implements IHasSQL {
 */
   public function Save() {
       try {
-        $this->database->ExecuteQuery(self::SQL('update profile'), array($this->profile->name, $this->profile->email, $this->profile->id));
+        $this->database->ExecuteQuery(self::SQL('update profile'), array($this["name"], $this["email"], $this["id"]));
         $this->session->SetAuthenticatedUser($this->profile);
       } catch (Exception $e) {
         $this->AddMessage('error', "Failed to save profile: ". $e->getMessage());
@@ -196,7 +189,7 @@ class CMUser extends CObject implements IHasSQL {
 * @returns boolean true if success else false.
 */
   public function ChangePassword($password) {
-    $this->database->ExecuteQuery(self::SQL('update password'), array($password, $this->profile->id));
+    $this->database->ExecuteQuery(self::SQL('update password'), array($password, $this["id"]));
     return $this->database->RowCount() === 1;
   }
   

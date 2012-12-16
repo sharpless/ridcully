@@ -76,7 +76,7 @@
     * View and edit user profile.
     */
     public function Profile() {
-        if ($this->user->hasRoleAnonymous) {
+        if (!$this->user->isAuthenticated) {
             $this->RedirectToController();
         }
         $form = new CFormUserProfile($this, $this->user);
@@ -84,7 +84,7 @@
 
         $this->views->SetTitle('User Profile');
         $this->views->AddInclude(__DIR__ . '/profile.tpl.php', array(
-                  'is_authenticated'=>$this->user->isAuthenticated,
+                  'is_authenticated'=>$this->user["isAuthenticated"],
                   'user'=>$this->user,
                   'profile_form'=>$form->GetHTML(),
                 ));
@@ -106,8 +106,8 @@
     * Save updates to profile information.
     */
       public function DoProfileSave($form) {
-        $this->user->profile->name = $form['name']['value'];
-        $this->user->profile->email = $form['email']['value'];
+        $this->user["name"] = $form['name']['value'];
+        $this->user["email"] = $form['email']['value'];
         $ret = $this->user->Save();
         $this->AddMessage($ret, 'Saved profile.', 'Failed saving profile.');
         $this->RedirectToController('profile');

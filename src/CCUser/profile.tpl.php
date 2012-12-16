@@ -3,11 +3,11 @@
 
 <?php if($is_authenticated): ?>
 <?=$profile_form?>
-<p>You were created at <?=$user->profile->created?> and last updated at <?=$user->profile->updated?>.</p>
-<p>You are member of <?=count($user->profile->groups)?> group(s).</p>
+<p>You were created at <?=$user["created"]?> and last updated at <?=$user["updated"]?>.</p>
+<p>You are member of <?=count($user["groups"])?> group(s).</p>
 <ul>
-<?php foreach($user->profile->groups as $group): ?>
-<li><?=$group->name?>
+<?php foreach($user["groups"] as $group): ?>
+<li><?=$group["name"]?>
 <?php endforeach; ?>
 </ul>
 <?php else: ?>

@@ -51,8 +51,11 @@ $r->config['controllers'] = array(
   'developer' => array('enabled' => true, 'class' => 'CCDeveloper'),
   'guestbook' => array('enabled' => true, 'class' => "CCGuestBook"),
   'user'      => array('enabled' => true, 'class' => "CCUser"),
-  'acp'       => array('enabled' => true,'class' => 'CCAdminControlPanel'),
-);
+  'acp'       => array('enabled' => true, 'class' => 'CCAdminControlPanel'),
+  'content'   => array('enabled' => true, 'class' => 'CCContent'),
+  'blog'	  => array('enabled' => true, 'class' => 'CCBlog'),
+  'page'	  => array('enabled' => true, 'class' => 'CCPage'),
+  );
 
 /*
  * Set which theme to use

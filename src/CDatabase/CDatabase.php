@@ -47,7 +47,7 @@
         self::$queries[] = $query;
         self::$numQueries++;
         $this->stmt->execute($params);
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
       }
 
 

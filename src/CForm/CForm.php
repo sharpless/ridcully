@@ -2,7 +2,7 @@
 /**
  * A utility class to easy creating and handling of forms
  * 
- * @package LydiaCore
+ * @package RidcullyCore
  */
 class CFormElement implements ArrayAccess{
 
@@ -25,8 +25,8 @@ class CFormElement implements ArrayAccess{
     //$this['key'] = $name;
     //$this['name'] = isset($this['name']) ? $this['name'] : $name;
 
-    if(is_callable('CLydia::Instance()')) {
-      $this->characterEncoding = CLydia::Instance()->config['character_encoding'];
+    if(is_callable('CRidcully::Instance()')) {
+      $this->characterEncoding = CRidcully::Instance()->config['character_encoding'];
     } else {
       $this->characterEncoding = 'UTF-8';
     }

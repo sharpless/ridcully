@@ -61,6 +61,6 @@ else if($status === false){
 ?>
 <!doctype html>
 <meta charset=utf8>
-<title>Example on using forms with Lydia CForm</title>
+<title>Example on using forms with Ridcully CForm</title>
 <!-- Echo out the form -->
 <?=$form->GetHTML()?>

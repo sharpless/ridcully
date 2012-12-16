@@ -15,7 +15,7 @@
  </form>
 <?php foreach ($posts as $post): ?>
 <article class="post">
-  <p class="message"><?=$post->post_message?></p>
-  <p class="author">Skrivet av: <?=$post->post_author?> @ <?=$post->post_time?></p>
+  <p class="message"><?=$post["post_message"]?></p>
+  <p class="author">Skrivet av: <?=$post["post_author"]?> @ <?=$post["post_time"]?></p>
 </article>
 <?php endforeach; ?>

@@ -84,7 +84,7 @@ function get_debug() {
       if($r->user->IsAuthenticated()) {
         
         $items = "<a href='" . create_uri('user/profile') . "'><img class='gravatar' src='" . get_gravatar(20) . "' alt=''> " . $r->user->GetAcronym() . "</a> ";
-        if($r->user->IsAdministrator()) {
+        if($r->user["hasRoleAdmin"]) {
           $items .= "<a href='" . create_uri('acp') . "'>acp</a> ";
         }
         $items .= "<a href='" . create_uri('user/logout') . "'>logout</a> ";
@@ -98,5 +98,9 @@ function get_debug() {
 * Get a gravatar based on the user's email.
 */
 function get_gravatar($size=null) {
-  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CRidcully::Instance()->user->profile->email))) . '.jpg?' . ($size ? "s=$size" : null);
+  return 'http://www.gravatar.com/avatar/' . md5(strtolower(trim(CRidcully::Instance()->user->profile["email"]))) . '.jpg?' . ($size ? "s=$size" : null);
+}
+
+function filter_data($data, $filter) {
+    return CMContent::Filter($data, $filter);
 }
