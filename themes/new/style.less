@@ -1,0 +1,240 @@
+/** 
+* Description: New theme for Ridcully based on less and semantic.gs.
+*/
+
+/** --------------------------------------------------------------
+* semantic.gs
+*/
+@import url(grid.less);
+
+
+/** --------------------------------------------------------------
+* Settings
+*/
+@bgcolor1 = #ccc;
+@bgcolor2 = #ccf;
+@color = #333;
+@serif    = Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+@sans  = Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+@monospace  = Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+/* Wrap elements to site width in grid layout*/
+.wrap() {width:@total-width;margin:0 auto;.clearfix();}
+
+@magic-number:22px;
+
+
+/** --------------------------------------------------------------
+* Typography
+*/
+h1{padding-bottom:4px;}
+h2{padding-bottom:4px;}
+
+
+/** --------------------------------------------------------------
+* Forms
+*/
+input,textarea{font:inherit;}
+input[readonly]{color:#666;}
+label{font-size:smaller;}
+.validation-failed{border:2px solid red;}
+.validation-message{color:red;font-size:smaller;}
+.form-action-link{font-size:smaller;}
+
+.content-edit{
+  input[type=text]{width:30em;}
+  textarea{width:40em;height:15em;}
+}
+
+
+/** --------------------------------------------------------------
+* HTML & Body
+*/
+html{background-color:@bgcolor1;}
+body{margin:0;padding:0;color:@color;background-color:@bgcolor2;font: 100.01%/1.375 @sans;}  
+
+
+.headings-general() {font-weight:normal;color:#111;margin-bottom:@magic-number;font-family:@serif}
+h1{.headings-general;font-size:2.375em;line-height:1.1579;border-bottom:1px solid #ccc;margin-bottom:@magic-number - 1px;}
+h2{.headings-general;font-size:1.875em;line-height:1.4667;}
+h3{.headings-general;font-size:1.375em;line-height:1;}
+h4{.headings-general;font-size:1.25em;line-height:1.1;}
+h5{.headings-general;font-size:1em;font-weight:bold;}
+h6{.headings-general;font-size:1em;font-weight:bold;margin-bottom:0;}
+h1 img,h2 img,h3 img,h4 img,h5 img,h6 img{margin:0;}
+
+
+@link-color: #600;
+/* Text elements */
+p{margin-bottom:1.375em;}
+a{color:@link-color;text-decoration:underline;
+  &:focus,&:hover{color:lighten(@link-color, 10%);text-decoration:none;}
+  &:visited{color:darken(@link-color,10%);}
+}
+blockquote{margin-left:1em;margin-bottom:1.375em;}
+strong,dfn{font-weight:bold;}
+em,dfn{font-style:italic;}
+pre{margin-bottom:1.375em;white-space:pre;}
+pre,code,tt,.code{font:1em/1.375 @monospace;}
+
+/* Lists */
+li ul,li ol{margin:0;}
+ul,ol{margin:0.6875em 1.5em 1.375em 0;padding-left:1.5em;}
+ul{list-style-type:disc;}
+ol{list-style-type:decimal;}
+dl{margin:0 0 1.375em 0;}
+dl dt{font-weight:bold;}
+dd{margin-left:1.5em;}
+
+/* Tables. Because of the need for padding on TH and TD, the vertical rhythm
+  on table cells has to be 33px, instead of the standard 22px or 44px
+  of other elements. */
+table{margin-bottom:1.375em;width:100%;}
+caption{text-align:left;font-style:italic;}
+thead{border-bottom:2px solid #222;}
+th{vertical-align:bottom;font-weight:bold;text-align:left;}
+th,td{padding:5px 10px 5px 5px;}
+tbody tr:nth-child(even) td, tbody tr.even td {}
+tbody tr{border-bottom:1px solid #eee;
+  &:hover{color:#000;}
+}
+tfoot{font-style:italic;}
+
+
+
+/** --------------------------------------------------------------
+* The header area.
+*
+*/
+.tablecell() {display:table-cell;vertical-align:middle;text-align:center;}
+#outer-wrap-header{height:@magic-number*4;margin-top:@magic-number/2;margin-bottom:@magic-number/2;}
+#inner-wrap-header{.wrap();}
+#header{.column(12);}
+
+
+/** --------------------------------------------------------------
+* Login menu
+*/
+#login-menu{float:right;font-size:smaller;
+  img.gravatar{vertical-align:middle;}
+  a{text-decoration:none;}
+  a:hover{text-decoration:underline;}
+}
+
+
+/** --------------------------------------------------------------
+* Banner
+*/
+#banner {display:table;margin-bottom:@magic-number/2;
+  #site-logo{.tablecell();}
+  #site-title{.tablecell();font-size:2.5em;padding-left:0.2em;text-shadow:#ccc 2px -2px 2px;
+    a{text-decoration:none;}
+  }
+  #site-slogan{.tablecell();font-size:1.5em;padding-left:10px;}
+}
+
+
+/** --------------------------------------------------------------
+* The flash area.
+*
+*/
+#outer-wrap-flash{}
+#inner-wrap-flash{.wrap();height:@magic-number*3;margin-bottom:@magic-number;}
+#flash{.column(12);height:100%;}
+
+
+/** --------------------------------------------------------------
+* The featured area.
+*
+*/
+#outer-wrap-featured{}
+#inner-wrap-featured{.wrap;height:@magic-number*5;margin-bottom:@magic-number;}
+#featured{}
+
+#featured-first,
+#featured-middle,
+#featured-last{.column(4);height:100%;}
+
+
+/** --------------------------------------------------------------
+* The main content area.
+*
+*/
+#outer-wrap-main{}
+#inner-wrap-main{.wrap;margin-bottom:@magic-number;}
+#main{}
+
+#primary{.column(8);}
+#sidebar{.column(4); height: @magic-number*5}
+
+
+/** --------------------------------------------------------------
+* The triptych area.
+*
+*/
+#outer-wrap-triptych{}
+#inner-wrap-triptych{.wrap();height:@magic-number*5;margin-bottom:@magic-number;}
+#triptych{height:inherit;}
+
+#triptych-first,
+#triptych-middle,
+#triptych-last{.column(4);height:100%;}
+
+
+/** --------------------------------------------------------------
+* The footer column area.
+*
+*/
+#outer-wrap-footer-column{border-top:1px solid @color;}
+#inner-wrap-footer-column{.wrap();height:@magic-number*5;padding-bottom:@magic-number;}
+#footer{height:inherit;}
+
+#footer-column-one,
+#footer-column-two,
+#footer-column-three,
+#footer-column-four{.column(3);font-size:0.9em;margin-top:1em;height:100%;
+}
+
+
+/** --------------------------------------------------------------
+* The footer area.
+*
+*/
+#outer-wrap-footer{}
+#inner-wrap-footer{.wrap();}
+#footer{.column(12);font-size:0.80em;color:#666;padding-bottom:@magic-number;}
+
+
+/** --------------------------------------------------------------
+* Links
+*/
+.hover(){text-decoration:none;color:#5C0A0A;}
+a{color:inherit;
+  &:link{}
+  &:visited{}
+  &:hover{.hover()}
+  &:focus{.hover()}
+  &:active{}
+}
+
+
+/** --------------------------------------------------------------
+* User feedback message wrappers.
+*/
+.error, .alert, .warning, .notice, .success, .info { 
+padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error, .alert { background: #fbe3e4; color: #8a1f11; border-color: #fbc2c4; }
+.notice, .warning { background: #fff6bf; color: #514721; border-color: #ffd324; }
+.success       { background: #e6efc2; color: #264409; border-color: #c6d880; }
+.info          { background: #d5edf8; color: #205791; border-color: #92cae4; }
+.error a, .alert a { color: #8a1f11; }
+.notice a, .warning a { color: #514721; }
+.success a         { color: #264409; }
+.info a            { color: #205791; }
+
+
+/** --------------------------------------------------------------
+* Misc
+*/
+.smaller-text{font-size:smaller;}
+.silent{color:#999;}

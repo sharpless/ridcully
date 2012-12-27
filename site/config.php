@@ -53,8 +53,9 @@ $r->config['controllers'] = array(
   'user'      => array('enabled' => true, 'class' => "CCUser"),
   'acp'       => array('enabled' => true, 'class' => 'CCAdminControlPanel'),
   'content'   => array('enabled' => true, 'class' => 'CCContent'),
-  'blog'	  => array('enabled' => true, 'class' => 'CCBlog'),
-  'page'	  => array('enabled' => true, 'class' => 'CCPage'),
+  'blog'  	  => array('enabled' => true, 'class' => 'CCBlog'),
+  'page'	    => array('enabled' => true, 'class' => 'CCPage'),
+  'theme'     => array('enabled' => true, 'class' => 'CCTheme'),
   );
 
 /*
@@ -62,7 +63,14 @@ $r->config['controllers'] = array(
  */
 
 $r->config['theme'] = array(
-  'name' => 'default'
+  'name'           => 'new',
+  'stylesheet'     => 'style.php',
+  'template_file'  => 'index.tpl.php',
+  'regions' => array('flash','featured-first','featured-middle','featured-last',
+    'primary','sidebar','triptych-first','triptych-middle','triptych-last',
+    'footer-column-one','footer-column-two','footer-column-three','footer-column-four',
+    'footer',
+    ),
     );
 /**
 * Set a base_uri to use if the auto-detected does not work
@@ -81,11 +89,11 @@ $r->config['url_type'] = 1;
 /**
 * Set what to show as debug or developer information in the get_debug() theme helper.
 */
-$r->config['debug']['ridcully'] = true;
-$r->config['debug']['session'] = true;
-$r->config['debug']['timer'] = true;
+$r->config['debug']['ridcully']       = true;
+$r->config['debug']['session']        = true;
+$r->config['debug']['timer']          = true;
 $r->config['debug']['db-num-queries'] = true;
-$r->config['debug']['db-queries'] = true;    
+$r->config['debug']['db-queries']     = true;    
 /**
  * Set database
  */

@@ -97,7 +97,7 @@ class CRidcully implements ISingleton {
         $themeUri     = $this->request->base_uri . "themes/{$themeName}";
        
         // Add stylesheet path to the $r->data array
-        $this->data['stylesheet'] = "{$themeUri}/style.css";
+        $this->data['stylesheet'] = "{$themeUri}/{$this->config['theme']['stylesheet']}";
 
         // Include the global functions.php and the functions.php that are part of the theme
         $r = &$this;
@@ -110,7 +110,8 @@ class CRidcully implements ISingleton {
         // Extract $r->data and $r->view->data to own variables and handover to the template file
         extract($this->data);     
         extract($this->views->GetData());     
-        include("{$themePath}/default.tpl.php");
+        $templateFile = (isset($this->config['theme']['template_file'])) ? $this->config['theme']['template_file'] : 'default.tpl.php';
+        include("{$themePath}/{$templateFile}");
       }
 }
 

@@ -18,8 +18,17 @@ function create_uri($uriOrController=null, $method=null, $arguments=null)
 /**
 * Render all views.
 */
-function render_views() {
-  return CRidcully::Instance()->views->Render();
+function render_views($region='default') {
+  return CRidcully::Instance()->views->Render($region);
+}
+
+/**
+ * Check if region has views
+ * @param  string $region the region(s) to be checked
+ * @return boolean
+ */
+function region_has_content($region='default' /*...*/) {
+  return CRidcully::Instance()->views->RegionHasView(func_get_args());
 }
 
 /**
@@ -73,7 +82,8 @@ function get_debug() {
           $html .= "<div class='$class'>{$val['message']}</div>\n";
         }
       }
-      return $html;
+      $r->views->AddString($html, array(), 'flash');
+      //return $html;
     }
     
     /**
@@ -91,7 +101,7 @@ function get_debug() {
       } else {
         $items = "<a href='" . create_uri('user/login') . "'>login</a> ";
       }
-      return "<nav>$items</nav>";
+      return "<nav id='login-menu'>$items</nav>";
     }
     
     /**

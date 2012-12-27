@@ -32,6 +32,7 @@
         */
        public function SetTitle($value) {
          $this->SetVariable('title', $value);
+         return $this;
       }
 
 
@@ -42,29 +43,78 @@
         */
        public function SetVariable($key, $value) {
          $this->data[$key] = $value;
+         return $this;
       }
 
-
-       /**
-        * Add a view as file to be included and optional variables.
-        *
-        * @param $file string path to the file to be included.
-        * @param vars array containing the variables that should be avilable for the included file.
-        */
-       public function AddInclude($file, $variables=array()) {
-         $this->views[] = array('type' => 'include', 'file' => $file, 'variables' => $variables);
+      public function AddStyle($style)
+      {
+        if (isset($this->data['style'])) {
+          $this->data['style'] .= "{$style}\n";
+        } else {
+          $this->data['style'] = "{$style}\n";
+        }
+        return $this;
+      }
+      /**
+       * Add a view as file to be included and optional variables
+       * 
+       * @param string $file      path to the file that is to be included
+       * @param array  $variables contains variables available for the included file
+       * @param string $region    set where to print the content
+       *
+       * @return object $this
+       */
+       public function AddInclude($file, $variables=array(), $region='default') {
+         $this->views[$region][] = array('type' => 'include', 'file' => $file, 'variables' => $variables);
+         return $this;
+      }
+      /**
+       * Add a view as string and optional variables
+       * @param string $string    content to be included
+       * @param array  $variables contains variables available for the string
+       * @param string $region    set where to print the content
+       */
+      public function AddString($string, $variables=array(), $region='default')
+      {
+        $this->views[$region][] = array('type'=>'string', 'string' => $string, 'variables' => $variables);
+        return $this;
       }
 
+      /**
+       * Check if there exists content to be displayed in the specified region(s)
+       * 
+       * @param string/array $region the region(s) to be checked
+       * @return boolean true if something to display, else false
+       */
+      public function RegionHasView($region)
+      {
+        if (is_array($region)) {
+          foreach ($region as $val) {
+            if (isset($this->views[$val])) {
+              return true;
+            }
+          }
+          return false;
+        } else {
+          return (isset($this->views[$region]));
+        }
+      }
 
-       /**
-        * Render all views according to their type.
-        */
-       public function Render() {
-         foreach($this->views as $view) {
+      /**
+       * Render all views
+       * @param string $region set where to print the content
+       */
+      public function Render($region='default') {
+        if(empty($this->views[$region])) return;
+        foreach($this->views[$region] as $view) {
           switch($view['type']) {
             case 'include':
               extract($view['variables']);
               include($view['file']);
+              break;
+            case 'string':
+              extract($view['variables']); 
+              echo $view['string'];
               break;
           }
          }

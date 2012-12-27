@@ -1,0 +1,88 @@
+/* 
+* New theme for Ridcully
+*/
+@import url(grid.less);
+// Some settings
+
+@font: Verdana, Arial, Helvetica, sans-serif;
+@hfont: 'Courier New',Courier,monospace;
+
+html {background: #ccc;}
+
+body {
+//  margin: 8px auto;
+//  width: 934px;
+  padding: 8px;
+  background: #ccf;
+  border: 1px dotted #000000;
+  font-family: @font;
+  color: #333333;
+}
+header {
+ .column(12);
+}
+header h1 {
+  font-family: @hfont;
+}
+.content h1 {
+    text-transform: uppercase;
+    border-bottom: 4px double #333333;
+}
+
+nav.login {
+  float: right;
+}
+
+
+/* navigation menu
+--------------------------------------------------------
+
+*/
+nav.navmenu {
+  display: block;
+  padding: 0.2em 1em 0 1em;
+  background: #99f;
+  border-bottom: 2px solid #666;
+}
+nav.navmenu a {
+  padding: 0.3em 1em 0 1em;
+  color: #555;
+  font: @font;
+  text-decoration:none;
+}
+nav.navmenu a:link    { }
+nav.navmenu a:visited { }
+nav.navmenu a:hover   {
+  color: #99f; background: #666;
+}
+nav.navmenu a:active  { }
+
+p.message {
+  margin-top: 0;
+}
+
+p.author {
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 0;
+  border-top: 1px dotted #000;
+}
+
+article.post {
+  background-color: #ddf;
+  padding: 5px;
+  border: 1px dashed #000;
+  margin: 5px 0;
+}
+footer {
+  display: block;
+}
+footer a {
+    font: italic 0.8em @font;
+    text-decoration:none;
+    color: #999999;
+}
+footer a:link    { }
+footer a:visited { }
+footer a:hover   { text-decoration:underline;  color: #333333; }
+footer a:active  { }
