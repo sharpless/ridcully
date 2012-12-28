@@ -71,6 +71,11 @@ $r->config['theme'] = array(
     'footer-column-one','footer-column-two','footer-column-three','footer-column-four',
     'footer',
     ),
+    'data' => array(
+      'header' => '<h1>Welcome to Ridcully</h1>',
+      'slogan' => 'A rudimentary PHP MVC framework',
+      'footer' => '<p>Footer: &copy; Ridcully by Fredrik Larsson</p>',
+      ),
     );
 /**
 * Set a base_uri to use if the auto-detected does not work
