@@ -21,7 +21,7 @@ class CCGuestBook extends CObject implements IController {
     $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
         'posts'=>  $this->guestbookModel->ReadAll(),
         'formAction' => $this->request->CreateUri('guestbook/post')
-    ));
+    ), 'primary');
 
   }
 

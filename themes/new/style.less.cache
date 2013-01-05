@@ -1,4 +1,4 @@
-a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:8167:"body {
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:8150:"body {
   width: 100%;
   *zoom: 1;
 }
@@ -337,7 +337,6 @@ tfoot {
   float: left;
   width: 300px;
   margin: 0 10px;
-  height: 110px;
 }
 #inner-wrap-triptych {
   width: 960px;
@@ -484,4 +483,4 @@ a:focus {
 .silent {
   color: #999;
 }
-";s:5:"files";a:2:{s:85:"D:\Users\Fredrik Larsson\Documents\plugg\phpmvc\kmom06\ridcully\themes\new\style.less";i:1356558727;s:84:"D:\Users\Fredrik Larsson\Documents\plugg\phpmvc\kmom06\ridcully\themes\new\grid.less";i:1331870080;}s:7:"updated";i:1356558738;}
+";s:5:"files";a:2:{s:65:"/Users/fredrik/plugg/phpmvc/kmom07/ridcully/themes/new/style.less";i:1357388906;s:64:"/Users/fredrik/plugg/phpmvc/kmom07/ridcully/themes/new/grid.less";i:1356647348;}s:7:"updated";i:1357388920;}

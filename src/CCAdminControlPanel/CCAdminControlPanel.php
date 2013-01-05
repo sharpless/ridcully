@@ -23,7 +23,7 @@ class CCAdminControlPanel extends CObject implements IController {
         $this->RedirectTo();
     }
     $this->views->SetTitle('ACP: Admin Control Panel');
-    $this->views->AddInclude(__DIR__ . '/index.tpl.php');
+    $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(), 'primary');
   }
  
 

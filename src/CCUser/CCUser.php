@@ -25,7 +25,7 @@
         $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
           'is_authenticated'=>$this->user->IsAuthenticated(),
           'user'=>$this->user->GetProfile(),
-        ));
+        ), 'primary');
       }
      
   /**
@@ -42,7 +42,7 @@
         'login_form'=>$form->GetHTML(),
         'allow_create_user'=>  CRidcully::Instance()->config['create_new_users'],
         'create_user_url' => $this->request->CreateUri(null, 'create'),
-        ));
+        ), 'primary');
     
   }
       /**
@@ -87,7 +87,7 @@
                   'is_authenticated'=>$this->user["isAuthenticated"],
                   'user'=>$this->user,
                   'profile_form'=>$form->GetHTML(),
-                ));
+                ), 'primary');
     }
       
     /**
@@ -122,7 +122,7 @@
       $this->RedirectToController('Create');
     }
     $this->views->SetTitle('Create user');
-    $this->views->AddInclude(__DIR__ . '/create.tpl.php', array('form' => $form->GetHTML()));
+    $this->views->AddInclude(__DIR__ . '/create.tpl.php', array('form' => $form->GetHTML()), 'primary');
   }
   
 

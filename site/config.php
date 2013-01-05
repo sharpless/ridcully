@@ -54,8 +54,9 @@ $r->config['controllers'] = array(
   'acp'       => array('enabled' => true, 'class' => 'CCAdminControlPanel'),
   'content'   => array('enabled' => true, 'class' => 'CCContent'),
   'blog'  	  => array('enabled' => true, 'class' => 'CCBlog'),
-  'page'	    => array('enabled' => true, 'class' => 'CCPage'),
+  'page'	  => array('enabled' => true, 'class' => 'CCPage'),
   'theme'     => array('enabled' => true, 'class' => 'CCTheme'),
+  'modules'   => array('enabled' => true, 'class' => 'CCModules'),
   );
 
 /*
