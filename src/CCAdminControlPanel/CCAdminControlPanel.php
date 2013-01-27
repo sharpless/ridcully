@@ -8,16 +8,16 @@ class CCAdminControlPanel extends CObject implements IController {
 
 
   /**
-* Constructor
-*/
+   * Constructor
+   */
   public function __construct() {
     parent::__construct();
   }
 
 
   /**
-* Show profile information of the user.
-*/
+   * Show profile information of the user.
+   */
   public function Index() {
     if (!$this->user["hasRoleAdmin"]) {
         $this->RedirectTo();

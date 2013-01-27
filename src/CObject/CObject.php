@@ -21,6 +21,7 @@ class CObject {
     if (!$r) {
         $r = CRidcully::Instance();
     }
+    $this->r        = &$r;
     $this->config   = &$r->config;
     $this->data     = &$r->data;
     $this->request  = &$r->request;
@@ -30,61 +31,42 @@ class CObject {
     $this->user     = &$r->user;
   }
 	/**
-	 * Redirect to another url and store the session
+	 * A wrapper for CRidcully::RedirectTo
 	 */
 	protected function RedirectTo($urlOrController=null, $method=null) {
-    $r = CRidcully::Instance();
-    if(isset($r->config['debug']['db-num-queries']) && $r->config['debug']['db-num-queries'] && isset($r->db)) {
-      $this->session->SetFlash('database_numQueries', $this->db->GetNumQueries());
-    }    
-    if(isset($r->config['debug']['db-queries']) && $r->config['debug']['db-queries'] && isset($r->db)) {
-      $this->session->SetFlash('database_queries', $this->db->GetQueries());
-    }    
-    if(isset($r->config['debug']['timer']) && $r->config['debug']['timer']) {
-	    $this->session->SetFlash('timer', $r->timer);
-    }    
-    $this->session->StoreInSession();
-    header('Location: ' . $this->request->CreateUri($urlOrController, $method));
+    $this->r->RedirectTo($urlOrController=null, $method=null);
   }
 
 
 	/**
-	 * Redirect to a method within the current controller. Defaults to index-method. Uses RedirectTo().
+	 * A wrapper for CRidcully::RedirectToController
 	 *
 	 * @param string method name the method, default is index method.
 	 */
 	protected function RedirectToController($method=null) {
-    $this->RedirectTo($this->request->controller, $method);
+    $this->r->RedirectToController($method);
   }
 
 
 	/**
-	 * Redirect to a controller and method. Uses RedirectTo().
+	 * A wrapper for CRidcully::RedirectToControllerMethod
 	 *
 	 * @param string controller name the controller or null for current controller.
 	 * @param string method name the method, default is current method.
 	 */
 	protected function RedirectToControllerMethod($controller=null, $method=null) {
-	  $controller = is_null($controller) ? $this->request->controller : null;
-	  $method = is_null($method) ? $this->request->method : null;	  
-    $this->RedirectTo($this->request->CreateUrl($controller, $method));
+	  $this->r->RedirectToControllerMethod($controller, $method);
   }
   
-  	/**
-	 * Save a message in the session. Uses $this->AddMessage()
+  /**
+	 * A wrapper for CRidcully::AddMessage
 	 *
    * @param $type string the type of message, for example: notice, info, success, warning, error.
    * @param $message string the message.
    * @param $alternative string the message if the $type is set to false, defaults to null.
    */
   protected function AddMessage($type, $message, $alternative=null) {
-    if($type === false) {
-      $type = 'error';
-      $message = $alternative;
-    } else if($type === true) {
-      $type = 'success';
-    }
-    $this->session->AddMessage($type, $message);
+    $this->r->AddMessage($type, $message, $alternative=null);
   }
 }
 ?>

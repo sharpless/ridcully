@@ -21,9 +21,7 @@ class CCPage extends CObject implements IController {
     public function Index() {
         $content = new CMContent();
         $this->views->SetTitle('Page');
-        $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-                                    'content' => null,
-                                ));
+        $this->views->AddInclude(__DIR__ . '/index.tpl.php', array('content' => null,), 'primary');
     }
 
 
@@ -35,9 +33,7 @@ class CCPage extends CObject implements IController {
     public function View($id=null) {
         $content = new CMContent($id);
         $this->views->SetTitle('Page: '.htmlEnt($content['title']));
-        $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
-                                    'content' => $content,
-                                ));
+        $this->views->AddInclude(__DIR__ . '/index.tpl.php', array('content' => $content,), 'primary');
     }
 
 

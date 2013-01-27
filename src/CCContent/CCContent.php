@@ -15,7 +15,7 @@
             $this->views->SetTitle('Content Controller');
             $this->views->AddInclude(__DIR__ . '/index.tpl.php', array(
                             'contents' => $content->ListAll(),
-                        ));
+                        ), 'primary');
         }
         
         public function Edit($id = null) {
@@ -38,7 +38,7 @@
                             'user'=>$this->user, 
                             'content'=>$content,
                             'form'=>$form,
-                        ));
+                        ), 'primary');
         }
         
         public function Create() {

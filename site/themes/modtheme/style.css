@@ -1,0 +1,13 @@
+@import url(../../../themes/new/style.php);
+html{background-color: #443266;}
+body{background-color: #C3C3E5;}
+#outer-wrap-header{
+	background-color: #443266;
+	border-bottom: 2px solid #8C489F;
+}
+#outer-wrap-footer{
+	background-color:#443266;
+}
+a{color:#436370}
+#header > h1 {color: #ccc;}
+#navbar ul.menu li a.selected{background-color:#C3C3E5;border-bottom:none;}

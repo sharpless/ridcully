@@ -3,7 +3,7 @@
     <p>All Ridcully modules.</p>
     <ul>
     <?php foreach($modules as $module): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
     <?php endforeach; ?>
     </ul>
     </div>
@@ -15,7 +15,7 @@
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if($module['isRidcullyCore']): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -28,7 +28,7 @@
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if($module['isRidcullyCMF']): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -41,7 +41,7 @@
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if($module['isModel']): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -50,11 +50,11 @@
 
     <div class='box'>
     <h4>Controllers</h4>
-    <p>Implements interface <code>IController</code>.</p>
+    <p>Implements interface <span class="code">IController</span>.</p>
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if($module['isController']): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -63,11 +63,11 @@
 
     <div class='box'>
     <h4>Contains SQL</h4>
-    <p>Implements interface <code>IHasSQL</code>.</p>
+    <p>Implements interface <span class="code">IHasSQL</span>.</p>
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if($module['hasSQL']): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -80,7 +80,7 @@
     <ul>
     <?php foreach($modules as $module): ?>
       <?php if(!($module['isController'] || $module['isRidcullyCore'] || $module['isRidcullyCMF'])): ?>
-      <li><?=$module['name']?></li>
+      <li><a href='<?=create_uri("modules/view/{$module['name']}")?>'><?=$module['name']?></a></li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>

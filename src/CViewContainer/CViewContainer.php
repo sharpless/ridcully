@@ -105,17 +105,11 @@
        * @param string $region set where to print the content
        */
       public function Render($region='default') {
-        if(empty($this->views[$region])) return;
+        if(!isset($this->views[$region])) return;
         foreach($this->views[$region] as $view) {
           switch($view['type']) {
-            case 'include':
-              extract($view['variables']);
-              include($view['file']);
-              break;
-            case 'string':
-              extract($view['variables']); 
-              echo $view['string'];
-              break;
+            case 'include': if(isset($view['variables'])) extract($view['variables']); include($view['file']); break;
+            case 'string': if(isset($view['variables'])) extract($view['variables']); echo $view['string']; break;
           }
          }
       }

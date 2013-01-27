@@ -5,7 +5,7 @@
     <?php if($contents != null):?>
       <ul>
       <?php foreach($contents as $val):?>
-        <li><?=$val["id"]?>, <?=$val["title"]?> by <?=$val["owner"]?>. <a href='<?=create_uri("content/edit/{$val["id"]}")?>'>Edit</a>
+        <li><?=$val["id"]?>, <a href="<?=create_uri("page/view/{$val["id"]}")?>"><?=$val["title"]?></a> by <?=$val["owner"]?>. <a href='<?=create_uri("content/edit/{$val["id"]}")?>'>Edit</a>
       <?php endforeach; ?>
       </ul>
     <?php else:?>
@@ -14,6 +14,5 @@
 
     <h2>Actions</h2>
     <ul>
-      <li><a href='<?=create_uri('content/init')?>'>Init database, create tables and sample content</a>
       <li><a href='<?=create_uri('content/create')?>'>Create new content</a>
     </ul>

@@ -54,7 +54,7 @@ body{margin:0;padding:0;color:@color;background-color:@bgcolor2;font: 100.01%/1.
 
 
 .headings-general() {font-weight:normal;color:#111;margin-bottom:@magic-number;font-family:@serif}
-h1{.headings-general;font-size:2.375em;line-height:1.1579;border-bottom:1px solid #ccc;margin-bottom:@magic-number - 1px;}
+h1{.headings-general;font-size:2.375em;line-height:1.1579;border-bottom:1px solid #aad;margin-bottom:@magic-number - 1px;}
 h2{.headings-general;font-size:1.875em;line-height:1.4667;}
 h3{.headings-general;font-size:1.375em;line-height:1;}
 h4{.headings-general;font-size:1.25em;line-height:1.1;}
@@ -106,7 +106,7 @@ tfoot{font-style:italic;}
 *
 */
 .tablecell() {display:table-cell;vertical-align:middle;text-align:center;}
-#outer-wrap-header{height:@magic-number*4;margin-top:@magic-number/2;margin-bottom:@magic-number/2;}
+#outer-wrap-header{margin-bottom:@magic-number/2;}
 #inner-wrap-header{.wrap();}
 #header{.column(12);}
 
@@ -132,6 +132,19 @@ tfoot{font-style:italic;}
   #site-slogan{.tablecell();font-size:1.5em;padding-left:10px;}
 }
 
+/** --------------------------------------------------------------
+* Navbar
+*/
+#navbar{
+  ul.menu{list-style-type:none;padding:2px 8px;margin:0;
+    li{padding:0;margin:0;display:inline;
+      a{padding:6px 8px;text-decoration:none;border:2px solid transparent;color: #ccc;
+        &:hover{background:#ddd;border:2px solid #999;border-bottom:none; color: #000;}
+        &.selected{background:#ccc;border:2px solid #999;border-bottom:none; color: #000;}
+      }
+    }
+  }
+}
 
 /** --------------------------------------------------------------
 * The flash area.
@@ -238,3 +251,9 @@ padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
 */
 .smaller-text{font-size:smaller;}
 .silent{color:#999;}
+
+code {
+  background: #ddd;
+  border: 1px solid #999;
+  padding: 0.8em;
+}

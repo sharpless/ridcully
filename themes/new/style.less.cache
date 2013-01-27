@@ -1,4 +1,4 @@
-a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:8150:"body {
+a:4:{s:4:"root";s:10:"style.less";s:8:"compiled";s:8685:"body {
   width: 100%;
   *zoom: 1;
 }
@@ -60,7 +60,7 @@ h1 {
   font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
   font-size: 2.375em;
   line-height: 1.1579;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #aad;
   margin-bottom: 21px;
 }
 h2 {
@@ -203,8 +203,6 @@ tfoot {
   font-style: italic;
 }
 #outer-wrap-header {
-  height: 88px;
-  margin-top: 11px;
   margin-bottom: 11px;
 }
 #inner-wrap-header {
@@ -265,6 +263,34 @@ tfoot {
   text-align: center;
   font-size: 1.5em;
   padding-left: 10px;
+}
+#navbar ul.menu {
+  list-style-type: none;
+  padding: 2px 8px;
+  margin: 0;
+}
+#navbar ul.menu li {
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+#navbar ul.menu li a {
+  padding: 6px 8px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  color: #ccc;
+}
+#navbar ul.menu li a:hover {
+  background: #ddd;
+  border: 2px solid #999;
+  border-bottom: none;
+  color: #000;
+}
+#navbar ul.menu li a.selected {
+  background: #ccc;
+  border: 2px solid #999;
+  border-bottom: none;
+  color: #000;
 }
 #inner-wrap-flash {
   width: 960px;
@@ -483,4 +509,9 @@ a:focus {
 .silent {
   color: #999;
 }
-";s:5:"files";a:2:{s:65:"/Users/fredrik/plugg/phpmvc/kmom07/ridcully/themes/new/style.less";i:1357388906;s:64:"/Users/fredrik/plugg/phpmvc/kmom07/ridcully/themes/new/grid.less";i:1356647348;}s:7:"updated";i:1357388920;}
+code {
+  background: #ddd;
+  border: 1px solid #999;
+  padding: 0.8em;
+}
+";s:5:"files";a:2:{s:85:"D:\Users\Fredrik Larsson\Documents\plugg\phpmvc\kmom07\ridcully\themes\new\style.less";i:1359315565;s:84:"D:\Users\Fredrik Larsson\Documents\plugg\phpmvc\kmom07\ridcully\themes\new\grid.less";i:1331870080;}s:7:"updated";i:1359315567;}

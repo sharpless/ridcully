@@ -66,10 +66,14 @@ class CRequest {
   }
 
 
-	/**
-	 * Init the object by parsing the current uri request.
-	 */
-  public function Init($baseUri = null) {
+  /**
+   * Parse the current url request and divide it in controller, method and arguments.
+   *
+   *  Calculates the base_url of the installation. Stores all useful details in $this
+   * @param string $baseUri use this as a hardcoded baseurl
+   * @param array $routing key/val to use for routing if url matches key
+   */
+  public function Init($baseUri = null, $routing=null) {
 		// Take current uri and divide it in controller, method and arguments
 		$requestUri = $_SERVER['REQUEST_URI'];
 		$scriptPart = $scriptName = $_SERVER['SCRIPT_NAME'];    
@@ -82,14 +86,22 @@ class CRequest {
 		// Set query to be everything after base_uri, except the optional querystring
 		$query = trim(substr($requestUri, strlen(rtrim($scriptPart, '/'))), '/');
 		$pos = strcspn($query, '?');
-    if($pos) {
-      $query = substr($query, 0, $pos);    
-    }
-    
+	    if($pos) {
+	      $query = substr($query, 0, $pos);    
+	    }
+	    
 		// Check if this looks like a querystring approach link
-    if(substr($query, 0, 1) === '?' && isset($_GET['q'])) {
-      $query = trim($_GET['q']);
-    }
+	    if(substr($query, 0, 1) === '?' && isset($_GET['q'])) {
+	      $query = trim($_GET['q']);
+	    }
+
+	    // Check if url matches an entry in routing table
+	    $routed_from = null;
+	    if(is_array($routing) && isset($routing[$query]) && $routing[$query]['enabled']) {
+	      $routed_from = $query;
+	      $query = $routing[$query]['url'];
+	    }
+
 		$splits = explode('/', $query);
 		
 		// Set controller, method and arguments
@@ -104,14 +116,15 @@ class CRequest {
 		$baseUri 		= !empty($baseUri) ? $baseUri : "{$parts['scheme']}://{$parts['host']}" . (isset($parts['port']) ? ":{$parts['port']}" : '') . rtrim(dirname($scriptName), '/');
 		
 		// Store it
-		$this->base_uri 	  = rtrim($baseUri, '/') . '/';
+		$this->base_uri 	= rtrim($baseUri, '/') . '/';
 		$this->current_uri  = $currentUri;
 		$this->request_uri  = $requestUri;
 		$this->script_name  = $scriptName;
-		$this->query	      = $query;
-		$this->splits	      = $splits;
-		$this->controller	  = $controller;
-		$this->method	      = $method;
+		$this->routed_from	= $routed_from;
+		$this->query	    = $query;
+		$this->splits	    = $splits;
+		$this->controller	= $controller;
+		$this->method	    = $method;
 		$this->arguments    = $arguments;
   }
 

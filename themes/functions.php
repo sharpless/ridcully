@@ -16,8 +16,10 @@ function create_uri($uriOrController=null, $method=null, $arguments=null)
 }
 
 /**
-* Render all views.
-*/
+ * Render view
+ * @param  string $region the region to be drawn
+ * @return mixed         the resulting view
+ */
 function render_views($region='default') {
   return CRidcully::Instance()->views->Render($region);
 }
@@ -82,8 +84,7 @@ function get_debug() {
           $html .= "<div class='$class'>{$val['message']}</div>\n";
         }
       }
-      $r->views->AddString($html, array(), 'flash');
-      //return $html;
+      return $html;
     }
     
     /**
@@ -113,4 +114,35 @@ function get_gravatar($size=null) {
 
 function filter_data($data, $filter) {
     return CMContent::Filter($data, $filter);
+}
+
+/**
+* Prepend the theme_url, which is the url to the current theme directory.
+*
+* @param $url string the url-part to prepend.
+* @returns string the absolute url.
+*/
+function theme_url($url) {
+  return create_uri(CRidcully::Instance()->themeUrl . "/{$url}");
+}
+
+
+/**
+* Prepend the theme_parent_url, which is the url to the parent theme directory.
+*
+* @param $url string the url-part to prepend.
+* @returns string the absolute url.
+*/
+function theme_parent_url($url) {
+  return create_uri(CRidcully::Instance()->themeParentUrl . "/{$url}");
+}
+
+/**
+* Escape data to make it safe to write in the browser.
+*
+* @param $str string to escape.
+* @returns string the escaped string.
+*/
+function esc($str) {
+  return htmlEnt($str);
 }

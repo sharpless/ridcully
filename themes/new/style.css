@@ -60,7 +60,7 @@ h1 {
   font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
   font-size: 2.375em;
   line-height: 1.1579;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #aad;
   margin-bottom: 21px;
 }
 h2 {
@@ -203,8 +203,6 @@ tfoot {
   font-style: italic;
 }
 #outer-wrap-header {
-  height: 88px;
-  margin-top: 11px;
   margin-bottom: 11px;
 }
 #inner-wrap-header {
@@ -265,6 +263,34 @@ tfoot {
   text-align: center;
   font-size: 1.5em;
   padding-left: 10px;
+}
+#navbar ul.menu {
+  list-style-type: none;
+  padding: 2px 8px;
+  margin: 0;
+}
+#navbar ul.menu li {
+  padding: 0;
+  margin: 0;
+  display: inline;
+}
+#navbar ul.menu li a {
+  padding: 6px 8px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  color: #ccc;
+}
+#navbar ul.menu li a:hover {
+  background: #ddd;
+  border: 2px solid #999;
+  border-bottom: none;
+  color: #000;
+}
+#navbar ul.menu li a.selected {
+  background: #ccc;
+  border: 2px solid #999;
+  border-bottom: none;
+  color: #000;
 }
 #inner-wrap-flash {
   width: 960px;
@@ -482,4 +508,9 @@ a:focus {
 }
 .silent {
   color: #999;
+}
+code {
+  background: #ddd;
+  border: 1px solid #999;
+  padding: 0.8em;
 }
