@@ -8,7 +8,7 @@
 //
 // Bootstrap
 //
-ini_set('short_open_tag', '1');
+
 define('RIDCULLY_INSTALL_PATH', dirname(__FILE__));
 define('RIDCULLY_SITE_PATH', RIDCULLY_INSTALL_PATH . '/site');
 
