@@ -57,7 +57,7 @@ $r->config['controllers'] = array(
   'page'	    => array('enabled' => true, 'class' => 'CCPage'),
   'theme'     => array('enabled' => true, 'class' => 'CCTheme'),
   'modules'   => array('enabled' => true, 'class' => 'CCModules'),
-  'my'        => array('enabled' => true,'class' => 'CCMycontroller'),
+  'my'        => array('enabled' => true,'class' => 'CCMyController'),
   );
 
 /**
