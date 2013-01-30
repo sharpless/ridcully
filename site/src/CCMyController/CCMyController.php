@@ -38,7 +38,7 @@
        * The guestbook.
        */
       public function Guestbook() {
-        $guestbook = new CMGuestbook();
+        $guestbook = new CMGuestBook();
         $form = new CFormMyGuestbook($guestbook);
         $status = $form->Check();
         if($status === false) {
