@@ -57,7 +57,7 @@ $r->config['controllers'] = array(
   'page'	    => array('enabled' => true, 'class' => 'CCPage'),
   'theme'     => array('enabled' => true, 'class' => 'CCTheme'),
   'modules'   => array('enabled' => true, 'class' => 'CCModules'),
-  'my'        => array('enabled' => true,'class' => 'CCMyController'),
+  'my'        => array('enabled' => true, 'class' => 'CCMyController'),
   );
 
 /**
@@ -134,8 +134,6 @@ $r->config['database'][0]['dsn'] = 'sqlite:' . RIDCULLY_SITE_PATH . '/data/.ht.s
  */
 
 $r->config['session_key'] = 'ridcully';
-
-$r->config['timezone'] = 'Europe/Stockholm';
 
 $r->config['create_new_users'] = true;
 
